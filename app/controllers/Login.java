@@ -3,8 +3,7 @@ package controllers;
 import models.User;
 import play.libs.OpenID;
 import play.libs.OpenID.UserInfo;
-
-import common.AuthController;
+import controllers.common.AuthController;
 
 public class Login extends AuthController {
 

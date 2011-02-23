@@ -1,16 +1,20 @@
 package controllers;
 
-import play.*;
-import play.mvc.*;
+import models.User;
+import controllers.common.AuthController;
 
-import java.util.*;
-
-import models.*;
-
-public class Application extends Controller {
+public class Application extends AuthController {
 
     public static void index() {
-        render();
+        //Banks.index();
     }
 
+    public static User getAuthUser() {
+    	if (session.contains("userid")) {
+    			return User.find("id = ?",Long.valueOf(session.get("userid"))).first();
+    	} else {
+    		return null;
+    	}
+    }
+    
 }
