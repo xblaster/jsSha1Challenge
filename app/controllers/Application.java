@@ -7,6 +7,7 @@ public class Application extends AuthController {
 
     public static void index() {
         //Banks.index();
+    	Challenge.index();
     }
 
     public static User getAuthUser() {
