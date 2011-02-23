@@ -15,5 +15,7 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.playframework.playclipse.playNature</nature>
 	</natures>
-	
+	<linkedResources><link><name>gwt2-1.3</name><type>2</type><location>D:/play-1.1.1/modules/gwt2-1.3/app</location></link>
+<link><name>conf/gwt2-1.3</name><type>2</type><location>D:/play-1.1.1/modules/gwt2-1.3/conf</location></link>
+</linkedResources>
 </projectDescription>
