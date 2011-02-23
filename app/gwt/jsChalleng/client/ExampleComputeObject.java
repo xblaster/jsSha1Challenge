@@ -13,17 +13,23 @@ public class ExampleComputeObject {
 	
 	public ExampleComputeObject() {
 		RootPanel.get("result").add(pane);
+		wordBuilder = new StringBuilder(" ");
 	}
 	
 	public int count = 0;
 	public int timedLaunched = 1;
+	
+	public StringBuilder wordBuilder;
 	
 	public void launch() {
 		Timer t = new Timer() {
 			
 			@Override
 			public void run() {
-				pane.getElement().setInnerHTML(count/timedLaunched+" code sha1 par seconde");
+				String innerHTML = "<p>Word (size: "+getWord().length()+") in progress: <code>"+getWord()+"</code></p>";
+				innerHTML += "<p>"+count/timedLaunched+" code sha1 par seconde</p>";
+				
+				pane.getElement().setInnerHTML(innerHTML);
 				timedLaunched++;
 			}
 		};
@@ -34,12 +40,18 @@ public class ExampleComputeObject {
 		
 	}
 	
+	public String getWord() {
+		return wordBuilder.toString();
+	}
+	
 	public void work() {
 		Timer tWork = new Timer() {
 			@Override
 			public void run() {
 				for (int i = 0; i < 200; i++) {
-					Sha1.calculate("lolrtjertjeriojeiotjeroiter478");
+					String word = nextWord().toString();
+					Sha1.calculate(word);
+					System.out.println(word);
 					count++;
 				}
 				work();
@@ -47,18 +59,42 @@ public class ExampleComputeObject {
 		};
 		
 		tWork.schedule(1);
+	}
+	
+	public StringBuilder nextWord() {
+		return nextWord(wordBuilder.length()-1);
+	}
+	
+	public StringBuilder nextWord(int position) {
 		
-		/*Timer tWork2 = new Timer() {
-			@Override
-			public void run() {
-				for (int i = 0; i < 200; i++) {
-					Sha1.calculate("lolrtjertjeriojeiotjeroiter478");
-					count++;
-				}
+		int charToHandle = wordBuilder.charAt(position);
+		if ((int)charToHandle>168) { //if arrive at last possible value
+			if (position!=0) {
+				return nextWord(position-1);
+			} else {
+				return generateBiggerWord();
 			}
-		};
+		}
 		
-		tWork2.schedule(1);*/
+		wordBuilder.setCharAt(position, (char)(charToHandle+1));
+		for (int i = position+1; i < wordBuilder.length(); i++) {
+			//reset char after
+			wordBuilder.setCharAt(i, (char)32);
+		}
+		
+		return wordBuilder;
+	}
+
+	private StringBuilder generateBiggerWord() {
+		int newLen = wordBuilder.length()+1;
+		
+		wordBuilder = new StringBuilder();
+		wordBuilder.setLength(newLen);
+		
+		for (int i = 0; i < newLen; i++) {
+			wordBuilder.setCharAt(i, (char)32);
+		}
+		return wordBuilder;
 	}
 
 }
