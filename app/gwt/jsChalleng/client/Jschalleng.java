@@ -41,11 +41,13 @@ public class Jschalleng implements EntryPoint {
 				});
 			}
 		});
-		RootPanel.get("content").add(b);
+		//RootPanel.get("content").add(b);
 		
 		
 		//Sha1 sha1 = new Sha1();
-		String res = Sha1.calculate("erhierieu");
-		RootPanel.get("result").add(new HTMLPanel(res));
+		//String res = Sha1.calculate("erhierieu");
+		
+		ExampleComputeObject eco = new ExampleComputeObject();
+		eco.launch();
 	}
 }
