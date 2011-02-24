@@ -50,6 +50,6 @@ public class Jschalleng implements EntryPoint {
 		//String res = Sha1.calculate("erhierieu");
 		
 		ComputeBlock eco = new ComputeBlock();
-		eco.runBlock(BlockEntryDTO.getMock());
+		//eco.runBlock(BlockEntryDTO.getMock());
 	}
 }

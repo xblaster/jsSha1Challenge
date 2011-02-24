@@ -11,9 +11,9 @@ public class BlockEntryDTO {
 		this.end = end;
 	}
 
-	public int totalSize() {
+	public int size() {
 		//empiric value (bad for the moment for a block)
-		return 294813;
+		return 294813*3;
 	}
 	
 	public String getBegin() {
@@ -31,7 +31,7 @@ public class BlockEntryDTO {
 	
 	
 	public static BlockEntryDTO getMock() {
-		return new BlockEntryDTO("   ", "?~~");
+		return new BlockEntryDTO("   ", "~~~");
 		//return new BlockEntryDTO("@   ", "_~~");
 		//return new BlockEntryDTO("`   ", "~~~");
 	}

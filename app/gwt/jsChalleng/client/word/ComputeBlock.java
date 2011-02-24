@@ -10,10 +10,30 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class ComputeBlock {
 
 	HTMLPanel pane = new HTMLPanel("");
+	protected int blockAchieved = 0;
+
 	
 	public ComputeBlock() {
 		RootPanel.get("result").add(pane);
-		wordBuilder = new StringBuilder(" ");
+		//wordBuilder = new StringBuilder(" ");
+		
+		Timer t = new Timer() {
+			
+
+			@Override
+			public void run() {
+				String innerHTML = "<p>Word (size: "+getWord().length()+") in progress: <code>"+getWord()+"</code></p>";
+				innerHTML += "<p>"+count/timedLaunched+" code sha1 par seconde. total "+count*100/block.size()+"% "+count+"</p>";
+				innerHTML += "<h1>Block achieved: <b>"+blockAchieved+"</b></h1>";
+				
+				pane.getElement().setInnerHTML(innerHTML);
+				timedLaunched++;
+			}
+		};
+		
+		t.scheduleRepeating(1000);
+		
+		onBlockComplete();
 	}
 	
 	public int count = 0;
@@ -26,25 +46,14 @@ public class ComputeBlock {
 		
 		this.block = blockEntryDTO;
 		
+		//init war
+		count = 0;
+		timedLaunched = 1;
+		
 		//init word
 		wordBuilder = new StringBuilder(blockEntryDTO.getBegin());
 		
-		Timer t = new Timer() {
-			
-			@Override
-			public void run() {
-				String innerHTML = "<p>Word (size: "+getWord().length()+") in progress: <code>"+getWord()+"</code></p>";
-				innerHTML += "<p>"+count/timedLaunched+" code sha1 par seconde. total "+count+"</p>";
-				
-				pane.getElement().setInnerHTML(innerHTML);
-				timedLaunched++;
-			}
-		};
-		
-		t.scheduleRepeating(1000);
-		
 		work();
-		
 	}
 	
 	public String getWord() {
@@ -61,7 +70,7 @@ public class ComputeBlock {
 					Sha1.calculate(word);
 					
 					if (word.equals(block.getEnd())) {
-						System.out.println("all done");
+						onBlockComplete();
 						return;
 					}
 					System.out.println(word+" "+block.getEnd());
@@ -75,6 +84,12 @@ public class ComputeBlock {
 		tWork.schedule(1);
 	}
 	
+	protected void onBlockComplete() {
+		//dummy for the moment
+		runBlock(BlockEntryDTO.getMock());
+		blockAchieved++;
+	}
+
 	public StringBuilder nextWord() {
 		return nextWord(wordBuilder.length()-1);
 	}
