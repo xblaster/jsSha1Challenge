@@ -1,4 +1,4 @@
-package gwt.jsChalleng.client;
+package gwt.jsChalleng.client.word;
 
 import gwt.jsChalleng.client.sha1.Sha1;
 
@@ -7,11 +7,11 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
 
-public class ExampleComputeObject {
+public class ComputeBlock {
 
 	HTMLPanel pane = new HTMLPanel("");
 	
-	public ExampleComputeObject() {
+	public ComputeBlock() {
 		RootPanel.get("result").add(pane);
 		wordBuilder = new StringBuilder(" ");
 	}
@@ -20,14 +20,21 @@ public class ExampleComputeObject {
 	public int timedLaunched = 1;
 	
 	public StringBuilder wordBuilder;
+	private BlockEntryDTO block;
 	
-	public void launch() {
+	public void runBlock(BlockEntryDTO blockEntryDTO) {
+		
+		this.block = blockEntryDTO;
+		
+		//init word
+		wordBuilder = new StringBuilder(blockEntryDTO.getBegin());
+		
 		Timer t = new Timer() {
 			
 			@Override
 			public void run() {
 				String innerHTML = "<p>Word (size: "+getWord().length()+") in progress: <code>"+getWord()+"</code></p>";
-				innerHTML += "<p>"+count/timedLaunched+" code sha1 par seconde</p>";
+				innerHTML += "<p>"+count/timedLaunched+" code sha1 par seconde. total "+count+"</p>";
 				
 				pane.getElement().setInnerHTML(innerHTML);
 				timedLaunched++;
@@ -49,8 +56,15 @@ public class ExampleComputeObject {
 			@Override
 			public void run() {
 				for (int i = 0; i < 200; i++) {
+					
 					String word = nextWord().toString();
 					Sha1.calculate(word);
+					
+					if (word.equals(block.getEnd())) {
+						System.out.println("all done");
+						return;
+					}
+					System.out.println(word+" "+block.getEnd());
 					System.out.println(word);
 					count++;
 				}
@@ -68,7 +82,8 @@ public class ExampleComputeObject {
 	public StringBuilder nextWord(int position) {
 		
 		int charToHandle = wordBuilder.charAt(position);
-		if ((int)charToHandle>168) { //if arrive at last possible value
+		//if ((int)charToHandle>168) { //if arrive at last possible value
+		if ((int)charToHandle>126) { //if arrive at last possible value
 			if (position!=0) {
 				return nextWord(position-1);
 			} else {

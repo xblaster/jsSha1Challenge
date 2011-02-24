@@ -1,6 +1,8 @@
 package gwt.jsChalleng.client;
 
 import gwt.jsChalleng.client.sha1.Sha1;
+import gwt.jsChalleng.client.word.BlockEntryDTO;
+import gwt.jsChalleng.client.word.ComputeBlock;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -47,7 +49,7 @@ public class Jschalleng implements EntryPoint {
 		//Sha1 sha1 = new Sha1();
 		//String res = Sha1.calculate("erhierieu");
 		
-		ExampleComputeObject eco = new ExampleComputeObject();
-		eco.launch();
+		ComputeBlock eco = new ComputeBlock();
+		eco.runBlock(BlockEntryDTO.getMock());
 	}
 }
