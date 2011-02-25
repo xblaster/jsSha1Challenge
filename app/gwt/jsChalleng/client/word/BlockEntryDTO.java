@@ -1,14 +1,22 @@
 package gwt.jsChalleng.client.word;
 
-public class BlockEntryDTO {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class BlockEntryDTO implements IsSerializable {
 	
-	String begin;
-	String end;
+	public String beginBlock;
+	public String endBlock;
+	public Long id;
 	
-	public BlockEntryDTO(String begin, String end) {
+	public BlockEntryDTO() {
+		this("","",0l);
+	}
+	
+	public BlockEntryDTO(String begin, String end, Long id) {
 		super();
-		this.begin = begin;
-		this.end = end;
+		this.beginBlock = begin;
+		this.endBlock = end;
+		this.id = id;
 	}
 
 	public int size() {
@@ -17,21 +25,21 @@ public class BlockEntryDTO {
 	}
 	
 	public String getBegin() {
-		return begin;
+		return beginBlock;
 	}
 	public void setBegin(String begin) {
-		this.begin = begin;
+		this.beginBlock = begin;
 	}
 	public String getEnd() {
-		return end;
+		return endBlock;
 	}
 	public void setEnd(String end) {
-		this.end = end;
+		this.endBlock = end;
 	}
 	
 	
 	public static BlockEntryDTO getMock() {
-		return new BlockEntryDTO("   ", "~~~");
+		return new BlockEntryDTO("   ", "~~~", 0l);
 		//return new BlockEntryDTO("@   ", "_~~");
 		//return new BlockEntryDTO("`   ", "~~~");
 	}

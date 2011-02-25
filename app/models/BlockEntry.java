@@ -1,5 +1,7 @@
 package models;
 
+import gwt.jsChalleng.client.word.BlockEntryDTO;
+
 import javax.persistence.Entity;
 
 import play.db.jpa.Model;
@@ -26,5 +28,10 @@ public class BlockEntry  extends Model {
 	
 	public static void generateNewBlock() {
 		
+	}
+	
+	public BlockEntryDTO toDTO() {
+		
+		return new BlockEntryDTO(beginBlock, endBlock, id);
 	}
 }

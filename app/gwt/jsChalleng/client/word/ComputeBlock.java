@@ -1,9 +1,14 @@
 package gwt.jsChalleng.client.word;
 
+import gwt.jsChalleng.client.ChallengeService;
+import gwt.jsChalleng.client.ChallengeServiceAsync;
 import gwt.jsChalleng.client.sha1.Sha1;
 import gwt.jsChalleng.shared.WordGenerator;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -13,6 +18,8 @@ public class ComputeBlock {
 	HTMLPanel pane = new HTMLPanel("");
 	protected int blockAchieved = 0;
 
+	private final ChallengeServiceAsync challengeService = GWT.create(ChallengeService.class);
+	
 	private WordGenerator wordGenerator = new WordGenerator();
 	
 	public ComputeBlock() {
@@ -83,8 +90,20 @@ public class ComputeBlock {
 	}
 	
 	protected void onBlockComplete() {
-		//dummy for the moment
-		runBlock(BlockEntryDTO.getMock());
+		challengeService.getNewBlock(new AsyncCallback<BlockEntryDTO>() {
+			
+			@Override
+			public void onSuccess(BlockEntryDTO result) {
+				runBlock(result);
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.toString());
+			}
+		});
+		
+		//runBlock(BlockEntryDTO.getMock());
 		blockAchieved++;
 	}
 
