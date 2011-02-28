@@ -42,7 +42,7 @@ public class ComputeBlock {
 		
 		t.scheduleRepeating(1000);
 		
-		onBlockComplete();
+		getNewBlock();
 	}
 	
 	public int count = 0;
@@ -58,7 +58,11 @@ public class ComputeBlock {
 		count = 0;
 		timedLaunched = 1;
 		
+		wordGenerator.setWord(block.getBegin());
+		
 		work();
+		System.out.println(block.getBegin()+" "+block.getEnd());
+
 	}
 	
 	public String getWord() {
@@ -78,8 +82,6 @@ public class ComputeBlock {
 						onBlockComplete();
 						return;
 					}
-					System.out.println(word+" "+block.getEnd());
-					System.out.println(word);
 					count++;
 				}
 				work();
@@ -90,6 +92,25 @@ public class ComputeBlock {
 	}
 	
 	protected void onBlockComplete() {
+		
+		challengeService.finishBlock(block.id,new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				//doesn't matter for the moment :\
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				//nothing to do
+			}
+		});
+		blockAchieved++;
+		//ask for a new block in parallel
+		getNewBlock();
+	}
+	
+	protected void getNewBlock() {
 		challengeService.getNewBlock(new AsyncCallback<BlockEntryDTO>() {
 			
 			@Override
@@ -103,8 +124,6 @@ public class ComputeBlock {
 			}
 		});
 		
-		//runBlock(BlockEntryDTO.getMock());
-		blockAchieved++;
 	}
 
 

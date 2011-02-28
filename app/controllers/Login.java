@@ -34,8 +34,7 @@ public class Login extends AuthController {
 	    	 if(!OpenID.id("https://www.google.com/accounts/o8/id").
 	    			 	required("email","http://axschema.org/contact/email").
 	    			 	required("firstname","http://axschema.org/namePerson/first").
-	    			 	required("lastname","http://axschema.org/namePerson/lastname").
-	    			 	required("language","http://axschema.org/pref/language")
+	    			 	required("lastname","http://axschema.org/namePerson/lastname")
 	    			 	.verify()
 	    			 	) { 
 	    	               flash.put("error", "Oops. Cannot contact google"); 

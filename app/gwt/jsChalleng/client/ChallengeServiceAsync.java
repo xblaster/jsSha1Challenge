@@ -9,4 +9,6 @@ public interface ChallengeServiceAsync {
 	void getUser(AsyncCallback<String> callback);
 
 	void getNewBlock(AsyncCallback<BlockEntryDTO> callback);
+
+	void finishBlock(Long id, AsyncCallback<Void> callback);
 }
