@@ -3,6 +3,7 @@ package repository;
 import gwt.jsChalleng.shared.WordGenerator;
 import models.BlockEntry;
 import models.BlockMem;
+import models.LogEntry;
 
 public class BlockEntryRepository {
 	// return new BlockEntryDTO("   ", "?~~");
@@ -38,7 +39,6 @@ public class BlockEntryRepository {
 		}
 		System.out.println(mem.lastBlock);
 		mem.save();
-
 	}
 
 	public static BlockMem getBlockMem() {
@@ -51,6 +51,10 @@ public class BlockEntryRepository {
 
 		// there's only one BlockMem
 		return BlockMem.all().first();
+	}
+	
+	public static Long getTotalBlock() {
+		return LogEntry.count();
 	}
 
 	// public static void

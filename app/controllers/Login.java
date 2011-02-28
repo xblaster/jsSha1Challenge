@@ -3,6 +3,7 @@ package controllers;
 import models.User;
 import play.libs.OpenID;
 import play.libs.OpenID.UserInfo;
+import repository.BlockEntryRepository;
 import controllers.common.AuthController;
 
 public class Login extends AuthController {
@@ -12,6 +13,7 @@ public class Login extends AuthController {
 	}
 	     
 	public static void login() {
+		renderArgs.put("total", BlockEntryRepository.getTotalBlock());
 	    render();
 	}
 	
