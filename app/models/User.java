@@ -11,10 +11,11 @@ import play.db.jpa.Model;
 @Entity
 public class User extends Model{
 	public String urlid;
-	public String firstname;
-	public String lastname;
 	public String email;
 	public String language;
+	
+	public String firstname;
+	public String lastname;
 	
 	//@OrderBy("name ASC")
 	//@OneToMany
@@ -24,6 +25,8 @@ public class User extends Model{
 	//public List<Tag> tags;
 	
 	public String toString() {
-		return this.firstname;
+		if (this.firstname!=null) 
+			return firstname;
+		return email;
 	}
 }

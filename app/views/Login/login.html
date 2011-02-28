@@ -1,12 +1,20 @@
 #{extends 'default.html' /}
 
  
-<h2>Authentification</h2> 
+<h1>Authentification</h1> 
 
-<form action="@{Login.authenticate()}" method="POST">
+<!--  <form action="@{Login.authenticate()}" method="POST">
     <label for="user">Can we use your google account ?</label>
-    <input type="hidden" name="user" id="user" value="http://www.google.com/accounts/o8/id" />
+    <input type="hidden" name="authurl" id="user" value="http://www.google.com/accounts/o8/id" />
     <input type="submit" value="Yes" />
     <a href="@{Login.refuse()}">No</a>
-</form>
-</code>
+</form>-->
+
+
+<h2>Log with:</h2>
+<div class="logDiv"">
+<a href="@{Login.authenticate("http://www.google.com/accounts/o8/id")}"><img src="@{'/public/images/login/google.gif'}" alt ="google"/></a>
+<a href="@{Login.authenticate("http://facebook.anyopenid.com/")}"><img src="@{'/public/images/login/facebook.gif'}" alt ="facebook"/></a>
+<a href="@{Login.authenticate("http://me.yahoo.com")}"><img src="@{'/public/images/login/yahoo.gif'}" alt ="yahoo"/></a> 
+<a href="@{Login.authenticate("anonymous")}"><img src="@{'/public/images/login/anonymous.gif'}" alt ="anonymous"/></a>
+</div> 

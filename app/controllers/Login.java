@@ -19,7 +19,12 @@ public class Login extends AuthController {
 	    render();
 	}
 	    
-	public static void authenticate(String user) {
+	public static void authenticate(String authurl) {
+		
+		
+		if (authurl=="anonymous") { //if request anonymous
+			session.put("user", "lol");
+		}
 		
 	    if(OpenID.isAuthenticationResponse()) {
 	        UserInfo verifiedUser = OpenID.getVerifiedID();
@@ -31,7 +36,7 @@ public class Login extends AuthController {
 	        storeInDb(verifiedUser);
 	        index();
 	    } else {
-	    	 if(!OpenID.id("https://www.google.com/accounts/o8/id").
+	    	 if(!OpenID.id(authurl).
 	    			 	required("email","http://axschema.org/contact/email").
 	    			 	required("firstname","http://axschema.org/namePerson/first").
 	    			 	required("lastname","http://axschema.org/namePerson/lastname")
@@ -45,9 +50,7 @@ public class Login extends AuthController {
 	}
 
 	private static void storeInDb(UserInfo verifiedUser) {
-		//User u = new User();
 		session.put("user", verifiedUser.id);
-		
 		
 		User u = User.find("urlid = ?",verifiedUser.id).first();
 		if (u ==null) {
@@ -56,7 +59,6 @@ public class Login extends AuthController {
 			u.email = verifiedUser.extensions.get("email");
 			u.firstname = verifiedUser.extensions.get("firstname");
 			u.lastname = verifiedUser.extensions.get("lastname");
-			u.language = verifiedUser.extensions.get("language");
 			u.save();
 			
 			session.put("userid", u.id);
