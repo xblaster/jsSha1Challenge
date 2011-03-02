@@ -1,0 +1,2 @@
+serviceClass: gwt.jsChalleng.client.ChallengeService
+path: 46052080884FA4CB3044CC3D7FB4B0E2.gwt.rpc

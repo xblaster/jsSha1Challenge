@@ -1,0 +1,3 @@
+# Module jsChalleng
+# RPC service class, partial path of RPC policy file
+gwt.jsChalleng.client.ChallengeService, 46052080884FA4CB3044CC3D7FB4B0E2.gwt.rpc
