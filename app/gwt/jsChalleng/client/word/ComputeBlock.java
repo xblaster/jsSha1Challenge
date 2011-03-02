@@ -32,8 +32,8 @@ public class ComputeBlock {
 			@Override
 			public void run() {
 				String innerHTML = "<p>Word (size "+getWord().length()+") in progress: <code>"+getWord()+"</code></p>";
-				innerHTML += "<p>"+count/timedLaunched+" code sha1 par seconde.</p>";// total "+count*100/block.size()+"% "+count+"</p>";
-				innerHTML += "<div class=\"progress-container\"><div style=\"width: "+count*100/block.size()+"%\"></div></div>";
+				innerHTML += "<p>"+count/timedLaunched+" sha1 per second.</p>";// total "+count*100/block.size()+"% "+count+"</p>";
+				innerHTML += "<div class=\"progress-container\"><div style=\"width: "+count*100/block.size()+"%\">"+"</div></div>";
 				innerHTML += "<h1>Block achieved: <b>"+blockAchieved+"</b></h1>";
 				
 				pane.getElement().setInnerHTML(innerHTML);

@@ -109,5 +109,14 @@ code {
 	background-color: #DDD;
 }
 
+.disclaimer {
+	font-size: 120%;
+	background-color: #EEE;
+	padding: 1em;
+	border: 1px solid #CCC;
+	-moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
+	box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
+}
 
 

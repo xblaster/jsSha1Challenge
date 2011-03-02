@@ -21,7 +21,8 @@ public class BlockEntryDTO implements IsSerializable {
 
 	public int size() {
 		//empiric value (bad for the moment for a block)
-		return 294813*3;
+		//return 294813*3;
+		return 294813;
 	}
 	
 	public String getBegin() {

@@ -6,6 +6,7 @@ import play.libs.OpenID;
 import play.libs.OpenID.UserInfo;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.Router;
 
 public class AuthController extends Controller {
 	
@@ -25,7 +26,11 @@ public class AuthController extends Controller {
 	@Before
 	static void populate() {
 		renderArgs.put("user", Application.getAuthUser());
-		//renderArgs.put("tags", Tag.findAll());
+		String url = Router.reverse("Challenge.index").url.replace("challenge/index", "");
+		
+		
+		
+		renderArgs.put("rootUrl", url);
 	}
 	 
 
