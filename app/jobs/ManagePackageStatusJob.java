@@ -3,11 +3,11 @@ package jobs;
 import java.util.List;
 
 import models.BlockEntry;
+import play.jobs.Every;
 import play.jobs.Job;
-import play.jobs.On;
 import play.jobs.OnApplicationStart;
 
-@On("0 0 2 * * ?")
+@Every("1h")
 @OnApplicationStart
 public class ManagePackageStatusJob extends Job{
 	 public void doJob() {
