@@ -23,9 +23,11 @@ public class Login extends AuthController {
 	    
 	public static void authenticate(String authurl) {
 		
-		
-		if (authurl=="anonymous") { //if request anonymous
-			session.put("user", "lol");
+		if (authurl.equals("anonymous")) { //if request anonymous
+			setAsAnonymous();
+			render();
+			index();
+			return;
 		}
 		
 	    if(OpenID.isAuthenticationResponse()) {
@@ -51,6 +53,16 @@ public class Login extends AuthController {
 	    
 	}
 
+	private static void setAsAnonymous() {
+		UserInfo anonymousUser = new UserInfo();
+		anonymousUser.id= "noId";
+		anonymousUser.extensions.put("email", "none");
+		anonymousUser.extensions.put("firstname", "anonymous");
+		anonymousUser.extensions.put("lastname", " ");
+		
+		storeInDb(anonymousUser);
+	}
+	
 	private static void storeInDb(UserInfo verifiedUser) {
 		session.put("user", verifiedUser.id);
 		

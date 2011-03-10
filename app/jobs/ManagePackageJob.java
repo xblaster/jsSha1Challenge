@@ -7,7 +7,7 @@ import play.jobs.OnApplicationStart;
 import repository.BlockEntryRepository;
 
 //@OnApplicationStart
-@On("*/5 * * * * ?")
+@On("0 */5 * * * ?")
 public class ManagePackageJob extends Job {
 	 public void doJob() {
 		 if (BlockEntry.count("status = ?",0)< 500) {
