@@ -25,7 +25,6 @@ public class Login extends AuthController {
 		
 		if (authurl.equals("anonymous")) { //if request anonymous
 			setAsAnonymous();
-			render();
 			index();
 			return;
 		}
