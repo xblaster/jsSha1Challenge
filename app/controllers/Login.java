@@ -23,11 +23,6 @@ public class Login extends AuthController {
 	    
 	public static void authenticate(String authurl) {
 		
-		if (authurl.equals("anonymous")) { //if request anonymous
-			setAsAnonymous();
-			index();
-			return;
-		}
 		
 	    if(OpenID.isAuthenticationResponse()) {
 	        UserInfo verifiedUser = OpenID.getVerifiedID();
@@ -39,6 +34,12 @@ public class Login extends AuthController {
 	        storeInDb(verifiedUser);
 	        index();
 	    } else {
+	    	if (authurl.equals("anonymous")) { //if request anonymous
+				setAsAnonymous();
+				index();
+				return;
+			}
+	    	
 	    	 if(!OpenID.id(authurl).
 	    			 	required("email","http://axschema.org/contact/email").
 	    			 	required("firstname","http://axschema.org/namePerson/first").
