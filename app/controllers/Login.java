@@ -92,6 +92,11 @@ public class Login extends AuthController {
 		Application.index();
 	}
 	
+	public static void debug() {
+		
+		render();
+	}
+	
 	
 
 }
