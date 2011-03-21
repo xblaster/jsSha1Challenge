@@ -1,5 +1,6 @@
 package controllers;
 
+import models.LogEntry;
 import models.User;
 import play.libs.OpenID;
 import play.libs.OpenID.UserInfo;
@@ -93,7 +94,7 @@ public class Login extends AuthController {
 	}
 	
 	public static void debug() {
-		
+		//LogEntry.count(
 		render();
 	}
 	
