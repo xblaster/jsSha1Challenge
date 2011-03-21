@@ -95,7 +95,15 @@ public class Login extends AuthController {
 	
 	public static void debug() {
 		//LogEntry.count(
-		render();
+		LogEntry first = LogEntry.find("user = ? order by updateDate", Application.getAuthUser()).first();
+		System.out.println(first.updateDate);
+		
+		LogEntry last = LogEntry.find("user = ? order by updateDate DESC", Application.getAuthUser()).first();
+		System.out.println(last.updateDate);
+		
+		
+		String debug = ""+LogEntry.count("user = ? ", Application.getAuthUser());
+		render(debug);
 	}
 	
 	
