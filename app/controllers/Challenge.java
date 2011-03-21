@@ -8,7 +8,5 @@ public class Challenge extends AuthController {
 	public static void index() {
 		System.out.println(BlockEntry.count());
 		render();
-		
 	}
-
 }
