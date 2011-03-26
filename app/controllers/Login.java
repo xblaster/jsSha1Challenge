@@ -98,6 +98,7 @@ public class Login extends AuthController {
 	
 	public static void debug() {
 		//LogEntry.count(
+		System.out.println(Application.getAuthUser());
 		LogEntry first = LogEntry.find("user = ? order by updateDate", Application.getAuthUser()).first();
 		System.out.println(first.updateDate);
 		
@@ -107,7 +108,7 @@ public class Login extends AuthController {
 		Date d = DateUtil.getOnlyDatePart(first.updateDate);
 		while(d.compareTo(last.updateDate)==-1) {
 			System.out.println(d);
-			long count = LogEntry.count("user = ? and updateDate < ? and updateDate > ?", Application.getAuthUser(), d, DateUtil.getTommorow(d));
+			long count = LogEntry.count("user = ? and updateDate > ? and updateDate < ?", Application.getAuthUser(), d, DateUtil.getTommorow(d));
 			System.out.println(count);
 			d = DateUtil.getTommorow(d);
 		}
