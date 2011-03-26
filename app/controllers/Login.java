@@ -1,10 +1,13 @@
 package controllers;
 
+import java.util.Date;
+
 import models.LogEntry;
 import models.User;
 import play.libs.OpenID;
 import play.libs.OpenID.UserInfo;
 import repository.BlockEntryRepository;
+import util.DateUtil;
 import controllers.common.AuthController;
 
 public class Login extends AuthController {
@@ -101,6 +104,13 @@ public class Login extends AuthController {
 		LogEntry last = LogEntry.find("user = ? order by updateDate DESC", Application.getAuthUser()).first();
 		System.out.println(last.updateDate);
 		
+		Date d = DateUtil.getOnlyDatePart(first.updateDate);
+		while(d.compareTo(last.updateDate)==-1) {
+			System.out.println(d);
+			long count = LogEntry.count("user = ? and updateDate < ? and updateDate > ?", Application.getAuthUser(), d, DateUtil.getTommorow(d));
+			System.out.println(count);
+			d = DateUtil.getTommorow(d);
+		}
 		
 		String debug = ""+LogEntry.count("user = ? ", Application.getAuthUser());
 		render(debug);
